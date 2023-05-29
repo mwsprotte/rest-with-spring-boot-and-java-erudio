@@ -150,8 +150,6 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
     @Test
     @Order(3)
     public void testDisablePersonById() throws JsonMappingException, JsonProcessingException {
-        mockPerson();
-
 
         var content = given().spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
@@ -177,13 +175,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(persistedPerson.getGender());
         assertFalse(persistedPerson.getEnabled());
 
-        assertTrue(persistedPerson.getId() > 0);
+//        assertTrue(persistedPerson.getId() > 0);
+        assertEquals(person.getId(), persistedPerson.getId());
 
         assertEquals("Matheus", persistedPerson.getFirstName());
         assertEquals("Willian Sprotte", persistedPerson.getLastName());
         assertEquals("Jaragua do Sul", persistedPerson.getAddress());
         assertEquals("male", persistedPerson.getGender());
     }
+
     @Test
     @Order(4)
     public void testFindById() throws JsonMappingException, JsonProcessingException {
@@ -212,7 +212,10 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(persistedPerson.getLastName());
         assertNotNull(persistedPerson.getAddress());
         assertNotNull(persistedPerson.getGender());
-        assertTrue(persistedPerson.getId() > 0);
+        assertFalse(persistedPerson.getEnabled());
+
+//        assertTrue(persistedPerson.getId() > 0);
+        assertEquals(person.getId(), persistedPerson.getId());
 
         assertEquals("Matheus", persistedPerson.getFirstName());
         assertEquals("Willian Sprotte", persistedPerson.getLastName());
@@ -247,7 +250,8 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
                 .body()
                 .asString();
 
-        List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
+        List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {
+        });
 
         PersonVO foundPersonOne = people.get(0);
 
@@ -297,7 +301,8 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
                 .body()
                 .asString();
 
-        List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {});
+        List<PersonVO> people = objectMapper.readValue(content, new TypeReference<List<PersonVO>>() {
+        });
 
         PersonVO foundPersonOne = people.get(0);
 
@@ -329,7 +334,6 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertEquals("Mvezo – South Africa", foundPersonSix.getAddress());
         assertEquals("Male", foundPersonSix.getGender());
     }
-
 
 
     @Test
