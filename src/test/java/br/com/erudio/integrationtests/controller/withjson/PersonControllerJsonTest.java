@@ -290,7 +290,7 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
 
     @Test
     @Order(7)
-    public void testFindAllWitouToken() throws JsonMappingException, JsonProcessingException {
+    public void testFindAllWitoutToken() throws JsonMappingException, JsonProcessingException {
         var content = given().spec(specification)
                 .contentType(TestConfigs.CONTENT_TYPE_JSON)
                 .when()
@@ -312,12 +312,15 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(foundPersonOne.getAddress());
         assertNotNull(foundPersonOne.getGender());
 
+        assertTrue(foundPersonOne.getEnabled());
+
         assertEquals(1, foundPersonOne.getId());
 
         assertEquals("Ayrton", foundPersonOne.getFirstName());
         assertEquals("Senna", foundPersonOne.getLastName());
         assertEquals("São Paulo", foundPersonOne.getAddress());
         assertEquals("Male", foundPersonOne.getGender());
+
 
         PersonVO foundPersonSix = people.get(5);
 
@@ -326,6 +329,8 @@ public class PersonControllerJsonTest extends AbstractIntegrationTest {
         assertNotNull(foundPersonSix.getLastName());
         assertNotNull(foundPersonSix.getAddress());
         assertNotNull(foundPersonSix.getGender());
+
+        assertTrue(foundPersonSix.getEnabled());
 
         assertEquals(9, foundPersonSix.getId());
 
