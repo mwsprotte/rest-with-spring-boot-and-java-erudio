@@ -35,7 +35,3 @@ public class Startup {
         */
     }
 }
-
-//The Swagger documentation is available here:
-// UI: http://localhost:8080/swagger-ui/index.html
-// API: http://localhost:8080/v3/api-docs
