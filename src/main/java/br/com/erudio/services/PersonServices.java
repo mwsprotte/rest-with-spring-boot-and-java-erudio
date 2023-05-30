@@ -11,7 +11,6 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.PagedModel;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import br.com.erudio.controllers.PersonController;
@@ -40,6 +39,22 @@ public class PersonServices {
         logger.info("Finding all people!");
 
         var personPage = repository.findAll(pageable);
+
+        var personVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
+        personVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
+
+        Link link = linkTo(methodOn(PersonController.class).findAll(pageable.getPageNumber(),
+                pageable.getPageSize(),
+                "asc")).withSelfRel();
+
+        return assembler.toModel(personVosPage, link);
+    }
+
+    public PagedModel<EntityModel<PersonVO>> findPersonByName(String firstName, Pageable pageable) {
+
+        logger.info("Finding all people!");
+
+        var personPage = repository.findPersonsByName(firstName, pageable);
 
         var personVosPage = personPage.map(p -> DozerMapper.parseObject(p, PersonVO.class));
         personVosPage.map(p -> p.add(linkTo(methodOn(PersonController.class).findById(p.getKey())).withSelfRel()));
