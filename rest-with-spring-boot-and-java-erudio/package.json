@@ -1,0 +1,14 @@
+{
+  "name": "rest-with-spring-boot-and-java-erudio",
+  "version": "1.0.0",
+  "description": "A repository for my REST API's RESTFul, AWS, Spring Boot 2.x and Docker studies based on [this course](https://www.udemy.com/course/restful-apis-do-0-a-nuvem-com-springboot-e-docker/).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "create-react-app": "^5.0.1"
+  }
+}
